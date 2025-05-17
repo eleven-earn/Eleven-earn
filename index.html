@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Earn Eleven</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      animation: sway 6s ease-in-out infinite;
+    }
+    @keyframes sway {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+    body.dark-mode {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+    .container {
+      background: white;
+      padding: 1rem;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    body.dark-mode .container {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .menu-icon {
+      font-size: 3.5rem;
+      color: #4f46e5;
+      cursor: pointer;
+      padding: 1.5rem;
+      z-index: 1001;
+      transition: color 0.2s ease;
+    }
+    .menu-icon.hidden {
+      display: none;
+    }
+    .menu-icon:hover {
+      color: #4338ca;
+    }
+    .account-btn {
+      background-color: #10b981;
+      color: white;
+      padding: 0;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      width: 40px;
+      height: 40px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .account-btn img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .account-btn i {
+      font-size: 1.5rem;
+      color: white;
+    }
+    .account-btn:hover {
+      background-color: #059669;
+    }
+    .back-icon {
+      background-color: #6b7280;
+      color: white;
+      padding: 0;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      width: 40px;
+      height: 40px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-icon i {
+      font-size: 1.5rem;
+    }
+    .back-icon:hover {
+      background-color: #4b5563;
+    }
+    .menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: #1f2937;
+      color: white;
+      padding: 1rem;
+      transition: left 0.3s ease, opacity 0.3s ease;
+      z-index: 1000;
+      opacity: 0;
+    }
+    .menu.open {
+      left: 0;
+      opacity: 1;
+    }
+    .menu .close-btn {
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      text-align: right;
+    }
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+    .menu ul li {
+      padding: 1rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+    .menu ul li:hover {
+      background: #374151;
+    }
+    .menu ul li.submit-screenshot {
+      background-color: #f97316;
+      color: white;
+      font-weight: 700;
+    }
+    .menu ul li.submit-screenshot:hover {
+      background-color: #ea580c;
+    }
+    .menu ul li.home {
+      background-color: #10b981;
+      color: white;
+      font-weight: 700;
+    }
+    .menu ul li.home:hover {
+      background-color: #059669;
+    }
+    .menu ul li.privacy {
+      background-color: #4b5563;
+      color: white;
+      font-weight: 500;
+    }
+    .menu ul li.privacy:hover {
+      background-color: #6b7280;
+    }
+    h1 {
+      margin-bottom: 1rem;
+      color: #111827;
+      font-size: 1.5rem;
+      width: 100%;
+      text-align: center;
+    }
+    body.dark-mode h1 {
+      color: #e5e7eb;
+    }
+    #appTitle {
+      font-size: 2rem;
+      color: #4f46e5;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    input, textarea, button, select {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    body.dark-mode input,
+    body.dark-mode textarea,
+    body.dark-mode select {
+      background: #374151;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+    textarea {
+      height: 100px;
+    }
+    button {
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: 600;
+    }
+    body.dark-mode button {
+      background-color: #6366f1;
+    }
+    button:hover {
+      background-color: #4338ca;
+    }
+    body.dark-mode button:hover {
+      background-color: #4f46e5;
+    }
+    .menu-btns, .task-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .menu-btns button, .task-btns button {
+      flex: 1;
+      min-width: 120px;
+      max-width: 150px;
+    }
+    .menu-btns button.selected {
+      background-color: #10b981;
+      border: 2px solid #059669;
+      transform: scale(1.05);
+    }
+    .custom-task-btn {
+      background-color: #f97316;
+      color: white;
+      border: 2px solid #ea580c;
+      font-weight: 700;
+    }
+    .custom-task-btn:hover {
+      background-color: #ea580c;
+    }
+    .custom-task-btn.selected {
+      background-color: #dc2626;
+      border: 2px solid #b91c1c;
+      transform: scale(1.05);
+    }
+    button.logout {
+      background-color: #ef4444;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      width: auto;
+      min-width: 100px;
+      margin-left: auto;
+      display: block;
+    }
+    button.logout:hover {
+      background-color: #dc2626;
+    }
+    .textarea-container {
+      position: relative;
+      margin: 0.5rem 0;
+      width: 100%;
+    }
+    .textarea-icons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .textarea-icons i {
+      cursor: pointer;
+      color: #4f46e5;
+      font-size: 1.2rem;
+    }
+    .textarea-icons i:hover {
+      color: #4338ca;
+    }
+    .output {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #065f46;
+      width: 100%;
+      text-align: center;
+    }
+    .switch-auth {
+      margin-top: 1rem;
+      color: #1f2937;
+      width: 100%;
+      text-align: center;
+    }
+    body.dark-mode .switch-auth {
+      color: #e5e7eb;
+    }
+    .switch-auth span {
+      color: #4f46e5;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+      width: 100%;
+      text-align: center;
+    }
+    #taskSection, #accountSection, #screenshotSection, #privacySection {
+      display: none;
+      width: 100%;
+    }
+    .save-password {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      color: #1f2937;
+    }
+    body.dark-mode .save-password {
+      color: #e5e7eb;
+    }
+    .save-password input {
+      width: auto;
+      margin-right: 0.5rem;
+    }
+    .input-with-icon {
+      position: relative;
+      width: 100%;
+    }
+    .input-with-icon input {
+      padding-left: 2.5rem;
+    }
+    .input-with-icon i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4f46e5;
+      font-size: 1.2rem;
+    }
+    .profile-info, .submit-history {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .profile-info h2, .submit-history h2 {
+      font-size: 1.2rem;
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+    body.dark-mode .profile-info h2,
+    body.dark-mode .submit-history h2 {
+      color: #e5e7eb;
+    }
+    .profile-info p {
+      font-size: 1rem;
+      color: #1f2937;
+      margin: 0.3rem 0;
+    }
+    body.dark-mode .profile-info p {
+      color: #e5e7eb;
+    }
+    .profile-picture-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem 0;
+    }
+    .profile-picture {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #4f46e5;
+    }
+    .file-uploader {
+      width: 100%;
+      padding: 1rem;
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      text-align: center;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+    body.dark-mode .file-uploader {
+      border-color: #4b5563;
+    }
+    .file-uploader:hover, .file-uploader.dragover {
+      border-color: #4f46e5;
+    }
+    .file-uploader p {
+      margin: 0;
+      color: #4b5563;
+      font-size: 1rem;
+    }
+    body.dark-mode .file-uploader p {
+      color: #9ca3af;
+    }
+    .file-uploader i {
+      font-size: 1.5rem;
+      color: #4f46e5;
+      margin-bottom: 0.5rem;
+    }
+    .file-uploader input[type="file"] {
+      display: none;
+    }
+    .submit-history table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      max-height: 300px;
+      overflow-y: auto;
+      display: block;
+    }
+    body.dark-mode .submit-history table {
+      background: #374151;
+    }
+    .submit-history th, .submit-history td {
+      border: 1px solid #d1d5db;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    body.dark-mode .submit-history th,
+    body.dark-mode .submit-history td {
+      border-color: #4b5563;
+    }
+    .submit-history th {
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+    body.dark-mode .submit-history th {
+      background: #4b5563;
+      color: #e5e7eb;
+    }
+    .submit-history tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+    body.dark-mode .submit-history tr:nth-child(even) {
+      background: #2d3748;
+    }
+    .back-btn {
+      background-color: #6b7280;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    .back-btn:hover {
+      background-color: #4b5563;
+    }
+    .privacy-content {
+      text-align: left;
+      font-size: 0.9rem;
+      color: #1f2937;
+      margin-bottom: 1rem;
+    }
+    body.dark-mode .privacy-content {
+      color: #e5e7eb;
+    }
+    .privacy-content h2 {
+      font-size: 1.2rem;
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+    body.dark-mode .privacy-content h2 {
+      color: #e5e7eb;
+    }
+    .privacy-content p {
+      margin: 0.5rem 0;
+    }
+    .copyright {
+      font-size: 0.8rem;
+      color: #4b5563;
+      text-align: center;
+      margin-top: 1rem;
+      border-top: 1px solid #d1d5db;
+      padding-top: 1rem;
+    }
+    body.dark-mode .copyright {
+      color: #9ca3af;
+      border-color: #4b5563;
+    }
+    #submitScreenshotBtn {
+      background-color: #7c3aed;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      font-weight: 600;
+    }
+    #submitScreenshotBtn:hover {
+      background-color: #6d28d9;
+    }
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .toggle-container {
+      width: 60px;
+      height: 30px;
+      background: #d1d5db;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    body.dark-mode .toggle-container {
+      background: #4b5563;
+    }
+    .toggle-circle {
+      width: 26px;
+      height: 26px;
+      background: #4f46e5;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s ease;
+    }
+    body.dark-mode .toggle-circle {
+      transform: translateX(30px);
+    }
+    .history-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1002;
+    }
+    .history-modal-content {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      max-width: 90%;
+      max-height: 80%;
+      overflow: auto;
+      position: relative;
+    }
+    body.dark-mode .history-modal-content {
+      background: #1f2937;
+      color: #e5e7eb;
+    }
+    .history-modal-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .history-modal-content th,
+    .history-modal-content td {
+      border: 1px solid #d1d5db;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    body.dark-mode .history-modal-content th,
+    body.dark-mode .history-modal-content td {
+      border-color: #4b5563;
+    }
+    .history-modal-content th {
+      background: #f3f4f6;
+    }
+    body.dark-mode .history-modal-content th {
+      background: #4b5563;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #1f2937;
+    }
+    body.dark-mode .close-modal {
+      color: #e5e7eb;
+    }
+    .view-icon {
+      cursor: pointer;
+      color: #4f46e5;
+    }
+    .view-icon:hover {
+      color: #4338ca;
+    }
+    #walletNumberInput, #screenshotWalletNumberInput {
+      display: none;
+    }
+    @media (max-width: 400px) {
+      .container {
+        padding: 0.5rem;
+      }
+      .menu-btns button, .task-btns button {
+        min-width: 100px;
+        max-width: 120px;
+      }
+      button.logout {
+        min-width: 80px;
+      }
+      .textarea-icons i {
+        font-size: 1rem;
+      }
+      .submit-history table {
+        font-size: 0.8rem;
+      }
+      .menu {
+        width: 200px;
+        left: -200px;
+      }
+      .menu.open {
+        left: 0;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      #appTitle {
+        font-size: 1.5rem;
+      }
+      input, textarea, button, select {
+        font-size: 0.9rem;
+      }
+      .menu-icon {
+        font-size: 2.5rem;
+        padding: 1rem;
+      }
+      .account-btn, .back-icon {
+        width: 36px;
+        height: 36px;
+        right: 0.5rem;
+        top: 0.5rem;
+      }
+      .account-btn i, .back-icon i {
+        font-size: 1.3rem;
+      }
+      .profile-picture {
+        width: 80px;
+        height: 80px;
+      }
+      #submitScreenshotBtn {
+        padding: 0.8rem;
+        font-size: 1rem;
+      }
+      .file-uploader {
+        padding: 0.8rem;
+      }
+      .file-uploader i {
+        font-size: 1.3rem;
+      }
+      .file-uploader p {
+        font-size: 0.9rem;
+      }
+      .mode-toggle {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .toggle-container {
+        width: 50px;
+        height: 25px;
+      }
+      .toggle-circle {
+        width: 21px;
+        height: 21px;
+      }
+      body.dark-mode .toggle-circle {
+        transform: translateX(25px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <i class="fas fa-bars menu-icon" onclick="toggleMenu()"></i>
+      <button id="accountBtn" class="account-btn" onclick="showAccount()" title="Account">
+        <img id="accountIcon" src="" alt="Profile" style="display:none;" />
+        <i id="accountDefaultIcon" class="fas fa-user-circle"></i>
+      </button>
+      <button id="backIcon" class="back-icon" onclick="backToTask()" title="Back">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+
+    <div class="menu" id="menu">
+      <div class="close-btn" onclick="toggleMenu()">×</div>
+      <ul>
+        <li class="home" onclick="backToTask()">Home</li>
+        <li class="submit-screenshot" onclick="showScreenshotSection()">Submit Screenshot</li>
+        <li class="privacy" onclick="showPrivacy()">Privacy</li>
+      </ul>
+    </div>
+
+    <div id="authSection">
+      <h1 id="appTitle">Online Earn Eleven</h1>
+      <h1>Login</h1>
+      <input type="text" id="username" placeholder="Username" aria-label="Username" />
+      <input type="password" id="password" placeholder="Password" aria-label="Password" />
+      <label class="save-password">
+        <input type="checkbox" id="savePassword" checked />
+        Save Password
+      </label>
+      <div id="loginError" class="error"></div>
+      <button id="loginBtn" onclick="login()">Login</button>
+      <p class="switch-auth">Don't have an account? <span onclick="switchToSignup()">Sign Up</span></p>
+    </div>
+
+    <div id="signupSection" style="display:none;">
+      <h1>Sign Up</h1>
+      <div class="input-with-icon">
+        <i class="fas fa-user"></i>
+        <input type="text" id="newUsername" placeholder="Create Username" aria-label="Create Username" oninput="validateNewUsername()" />
+      </div>
+      <div id="usernameError" class="error"></div>
+      <div class="input-with-icon">
+        <i class="fab fa-whatsapp"></i>
+        <input type="text" id="whatsappNumber" placeholder="WhatsApp Number" aria-label="WhatsApp Number" oninput="validateWhatsappNumber()" />
+      </div>
+      <div id="whatsappError" class="error"></div>
+      <div class="input-with-icon">
+        <i class="fas fa-users"></i>
+        <input type="text" id="groupNumber" placeholder="Team Number" aria-label="Team Number" oninput="validateGroupNumber()" />
+      </div>
+      <div id="groupError" class="error"></div>
+      <input type="password" id="newPassword" placeholder="Create Password" aria-label="Create Password" oninput="validateNewPassword()" />
+      <div id="passwordError" class="error"></div>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" oninput="validateConfirmPassword()" />
+      <div id="confirmPasswordError" class="error"></div>
+      <label class="save-password">
+        <input type="checkbox" id="savePasswordSignup" checked />
+        Save Password
+      </label>
+      <button id="signupBtn" onclick="signup()">Sign Up</button>
+      <p class="switch-auth">Already have an account? <span onclick="switchToLogin()">Login</span></p>
+    </div>
+
+    <div id="taskSection" style="display:none;">
+      <h1>Submit Your Work</h1>
+      <div class="menu-btns">
+        <button onclick="showTask('Facebook')">Facebook Work</button>
+        <button onclick="showTask('Instagram')">Instagram Work</button>
+        <button onclick="showTask('Gmail')">Gmail Work</button>
+      </div>
+      <select id="walletSelect" onchange="showWalletInput()">
+        <option value="" disabled selected>Select Your Wallet</option>
+        <option value="Bkash">Bkash</option>
+        <option value="Nagad">Nagad</option>
+      </select>
+      <input type="text" id="walletNumberInput" placeholder="Enter Wallet Number (11 digits)" oninput="validateWalletNumber()" />
+      <div id="walletError" class="error"></div>
+      <div class="textarea-container">
+        <textarea id="taskLink" placeholder="Paste Gmail and Password here ..." aria-label="Work Content" oninput="validateTaskLink()"></textarea>
+        <div class="textarea-icons">
+          <i class="fas fa-eye" title="View Full Text" onclick="showFullText()"></i>
+          <i class="fas fa-trash" title="Clear Text" onclick="clearText()"></i>
+        </div>
+      </div>
+      <div id="taskLinkError" class="error"></div>
+      <button id="submitBtn" onclick="submitTask()">Submit Work</button>
+      <button id="logoutBtn" class="logout" onclick="logout()">Logout</button>
+    </div>
+
+    <div id="accountSection" style="display:none;">
+      <h1>Account</h1>
+      <div class="profile-info">
+        <h2>Profile Information</h2>
+        <p id="profileUsername"></p>
+        <p id="profileWhatsapp"></p>
+        <p id="profileGroup"></p>
+        <p id="gmailCount">Total Gmail Submissions: 0</p>
+        <div class="profile-picture-container">
+          <img id="profilePicture" class="profile-picture" src="" alt="Profile Picture" style="display:none;" />
+          <i id="profileDefaultPicture" class="fas fa-user-circle" style="font-size: 100px; color: #4f46e5;"></i>
+          <div class="file-uploader" id="profilePictureUploader">
+            <i class="fas fa-camera"></i>
+            <p>Click or drag to upload profile picture</p>
+            <input type="file" id="profilePictureInput" accept="image/*" capture="environment" />
+          </div>
+        </div>
+      </div>
+      <div class="submit-history">
+        <h2>Submit History</h2>
+        <table id="historyTable">
+          <thead>
+            <tr>
+              <th>Task Type</th>
+              <th>Piece</th>
+              <th>Points</th>
+              <th>Date & Time</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <button class="back-btn" onclick="backToTask()">Back</button>
+    </div>
+
+    <div id="screenshotSection" style="display:none;">
+      <h1>Submit Screenshot</h1>
+      <div class="task-btns">
+        <button class="custom-task-btn" onclick="selectScreenshotTask('TikTok Free')">TikTok Free</button>
+        <button class="custom-task-btn" onclick="selectScreenshotTask('GetLike')">GetLike</button>
+        <button class="custom-task-btn" onclick="selectScreenshotTask('iP-Web')">iP-Web</button>
+        <button class="custom-task-btn" onclick="selectScreenshotTask('SMM Task')">SMM Task</button>
+      </div>
+      <div id="tiktokPoints" style="display:none;">
+        <select id="pointSelect">
+          <option value="500" selected>500 Points</option>
+          <option value="1000">1000 Points</option>
+          <option value="1500">1500 Points</option>
+          <option value="2000">2000 Points</option>
+          <option value="2500">2500 Points</option>
+          <option value="3000">3000 Points</option>
+          <option value="4000">4000 Points</option>
+        </select>
+      </div>
+      <select id="screenshotWalletSelect" onchange="showScreenshotWalletInput()">
+        <option value="" disabled selected>Select Your Wallet</option>
+        <option value="Bkash">Bkash</option>
+        <option value="Nagad">Nagad</option>
+      </select>
+      <input type="text" id="screenshotWalletNumberInput" placeholder="Enter Wallet Number (11 digits)" oninput="validateScreenshotWalletNumber()" />
+      <div id="screenshotWalletError" class="error"></div>
+      <button id="submitScreenshotBtn" onclick="submitScreenshot()">Submit Screenshot</button>
+      <button class="back-btn" onclick="backToTask()">Back</button>
+    </div>
+
+    <div id="privacySection" style="display:none;">
+      <h1>Privacy Policy</h1>
+      <div class="privacy-content">
+        <h2>Data Protection</h2>
+        <p>At Online Earn Eleven, we prioritize your privacy. Your personal information, including usernames, WhatsApp numbers, and group numbers, is securely stored and used only for the purpose of providing our services.</p>
+        <h2>Data Usage</h2>
+        <p>We do not share your data with third parties without your consent, except as required by law. Your submissions are used to verify task completion and improve our platform.</p>
+        <h2>Contact Us</h2>
+        <p>If you have any questions about our privacy practices, please contact us at <a href="mailto:support@onlineearneleven.com">support@onlineearneleven.com</a>.</p>
+      </div>
+      <div class="copyright">
+        © 2025 Online Earn Eleven. All rights reserved. Developed by Seo - Himel Ahmed. For inquiries, contact support@onlineearneleven.com.
+      </div>
+      <button class="back-btn" onclick="backToTask()">Back</button>
+    </div>
+
+    <div class="output" id="statusMsg"></div>
+
+    <div class="mode-toggle">
+      <div class="toggle-container">
+        <div class="toggle-circle"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    console.log('Script loaded');
+    let users = {};
+    let currentUser = '';
+    let currentTaskType = '';
+    let currentScreenshotTask = '';
+    let submitHistory = {};
+    let gmailCount = {};
+
+    try {
+      const storedUsers = localStorage.getItem('users');
+      if (storedUsers) users = JSON.parse(storedUsers);
+      const storedHistory = localStorage.getItem('submitHistory');
+      if (storedHistory) submitHistory = JSON.parse(storedHistory);
+      const storedGmailCount = localStorage.getItem('gmailCount');
+      if (storedGmailCount) gmailCount = JSON.parse(storedGmailCount);
+    } catch (e) {
+      setStatus('Error accessing storage');
+      console.error('Storage error:', e);
+    }
+
+    window.onload = function () {
+      console.log('Page loaded');
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') document.body.classList.add('dark-mode');
+      try {
+        const savedCredentials = localStorage.getItem('savedCredentials');
+        if (savedCredentials) {
+          const { username, hashedPassword } = JSON.parse(savedCredentials);
+          if (users[username] && users[username].hashedPassword === hashedPassword) {
+            currentUser = username;
+            showTaskSection();
+            setStatus('Auto-logged in as ' + currentUser);
+            initializeProfilePictureUploader();
+            loadProfilePicture();
+          } else {
+            showAuthSections();
+          }
+        } else {
+          showAuthSections();
+        }
+      } catch (e) {
+        console.error('Error checking login state:', e);
+        setStatus('Error loading session');
+      }
+    };
+
+    function showAuthSections() {
+      document.getElementById('authSection').style.display = 'block';
+      document.getElementById('signupSection').style.display = 'none';
+      document.getElementById('taskSection').style.display = 'none';
+      document.getElementById('accountSection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'none';
+      document.getElementById('accountBtn').style.display = 'none';
+      document.getElementById('backIcon').style.display = 'none';
+      document.querySelector('.menu-icon').classList.add('hidden');
+    }
+
+    function showTaskSection() {
+      document.getElementById('authSection').style.display = 'none';
+      document.getElementById('signupSection').style.display = 'none';
+      document.getElementById('taskSection').style.display = 'block';
+      document.getElementById('accountSection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'none';
+      document.getElementById('accountBtn').style.display = 'flex';
+      document.getElementById('backIcon').style.display = 'none';
+      document.querySelector('.menu-icon').classList.remove('hidden');
+    }
+
+    function sanitizeInput(input) {
+      const div = document.createElement('div');
+      div.textContent = input;
+      return div.innerHTML.replace(/[<>"'&]/g, '').replace(/<\/?[^>]+(>|$)/g, '');
+    }
+
+    function parseInputToColumns(text) {
+      console.log('Parsing input:', text);
+      const lines = text.trim().split('\n');
+      const columns = { A: [], B: [], C: [] };
+      lines.forEach(line => {
+        const parts = line.split(/\t|\s+/).filter(part => part);
+        if (parts.length >= 2) {
+          columns.A.push(parts[0]);
+          columns.B.push(parts[1]);
+          columns.C.push(parts.length > 2 ? parts.slice(2).join(' ') : '');
+        }
+      });
+      console.log('Parsed columns:', columns);
+      return columns;
+    }
+
+    function countPieces(content, taskType) {
+      if (taskType === 'Gmail') {
+        return (content.match(/@gmail\.com/gi) || []).length;
+      }
+      return content.trim().split('\n').filter(line => line.trim()).length;
+    }
+
+    function loadProfilePicture() {
+      console.log('Loading profile picture for:', currentUser);
+      const profilePicture = document.getElementById('profilePicture');
+      const profileDefaultPicture = document.getElementById('profileDefaultPicture');
+      const accountIcon = document.getElementById('accountIcon');
+      const accountDefaultIcon = document.getElementById('accountDefaultIcon');
+      if (currentUser && users[currentUser] && users[currentUser].profilePicture) {
+        profilePicture.src = users[currentUser].profilePicture;
+        profilePicture.style.display = 'block';
+        profileDefaultPicture.style.display = 'none';
+        accountIcon.src = users[currentUser].profilePicture;
+        accountIcon.style.display = 'block';
+        accountDefaultIcon.style.display = 'none';
+      } else {
+        profilePicture.style.display = 'none';
+        profileDefaultPicture.style.display = 'block';
+        accountIcon.style.display = 'none';
+        accountDefaultIcon.style.display = 'block';
+      }
+    }
+
+    function initializeProfilePictureUploader() {
+      console.log('Initializing profile picture uploader');
+      const uploader = document.getElementById('profilePictureUploader');
+      const input = document.getElementById('profilePictureInput');
+      uploader.addEventListener('click', () => input.click());
+      uploader.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploader.classList.add('dragover');
+      });
+      uploader.addEventListener('dragleave', () => uploader.classList.remove('dragover'));
+      uploader.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploader.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          input.files = e.dataTransfer.files;
+          input.dispatchEvent(new Event('change'));
+        }
+      });
+      input.addEventListener('change', updateProfilePicture);
+    }
+
+    function updateProfilePicture(event) {
+      console.log('Updating profile picture');
+      const input = event.target;
+      if (!input.files || !input.files[0]) {
+        setStatus('No file selected');
+        return;
+      }
+      const file = input.files[0];
+      if (!file.type.startsWith('image/')) {
+        setStatus('Please upload an image file');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          users[currentUser].profilePicture = e.target.result;
+          localStorage.setItem('users', JSON.stringify(users));
+          loadProfilePicture();
+          setStatus('Profile picture updated');
+        } catch (e) {
+          console.error('Error updating profile picture:', e);
+          setStatus('Error updating profile picture');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function hashPassword(password) {
+      console.log('Hashing password');
+      try {
+        if (window.crypto && window.crypto.subtle) {
+          const encoder = new TextEncoder();
+          const data = encoder.encode(password);
+          const hash = await crypto.subtle.digest('SHA-256', data);
+          return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+        } else {
+          let hash = 0;
+          for (let i = 0; i < password.length; i++) {
+            hash = ((hash << 5) - hash) + password.charCodeAt(i);
+            hash |= 0;
+          }
+          return hash.toString();
+        }
+      } catch (e) {
+        console.error('Hashing error:', e);
+        setStatus('Error hashing password');
+        return '';
+      }
+    }
+
+    async function login() {
+      console.log('Login button clicked');
+      const u = sanitizeInput(document.getElementById('username').value.trim());
+      const p = document.getElementById('password').value.trim();
+      const savePassword = document.getElementById('savePassword').checked;
+      const error = document.getElementById('loginError');
+      if (!u || !p) {
+        error.innerText = 'Please enter both username and password';
+        return;
+      }
+      try {
+        const hashedP = await hashPassword(p);
+        if (users[u] && users[u].hashedPassword === hashedP) {
+          currentUser = u;
+          if (savePassword) {
+            localStorage.setItem('savedCredentials', JSON.stringify({ username: u, hashedPassword: hashedP }));
+          }
+          setStatus('Logged in as ' + u);
+          showTaskSection();
+          initializeProfilePictureUploader();
+          loadProfilePicture();
+          error.innerText = '';
+        } else {
+          error.innerText = 'Invalid credentials';
+        }
+      } catch (e) {
+        console.error('Login error:', e);
+        setStatus('Error during login');
+      }
+    }
+
+    async function signup() {
+      console.log('Sign Up button clicked');
+      const u = sanitizeInput(document.getElementById('newUsername').value.trim());
+      const whatsapp = sanitizeInput(document.getElementById('whatsappNumber').value.trim());
+      const group = sanitizeInput(document.getElementById('groupNumber').value.trim());
+      const p = document.getElementById('newPassword').value.trim();
+      const cp = document.getElementById('confirmPassword').value.trim();
+      const savePassword = document.getElementById('savePasswordSignup').checked;
+      const errorElements = {
+        username: document.getElementById('usernameError'),
+        whatsapp: document.getElementById('whatsappError'),
+        group: document.getElementById('groupError'),
+        password: document.getElementById('passwordError'),
+        confirm: document.getElementById('confirmPasswordError')
+      };
+      if (!u || !whatsapp || !group || !p || !cp) {
+        setStatus('Please fill all fields');
+        return;
+      }
+      if (u.length < 3) {
+        errorElements.username.innerText = 'Username must be at least 3 characters';
+        return;
+      }
+      if (!/^\d{10,}$/.test(whatsapp)) {
+        errorElements.whatsapp.innerText = 'WhatsApp Number must be at least 10 digits';
+        return;
+      }
+      if (group.length < 3) {
+        errorElements.group.innerText = 'Team Number must be at least 3 characters';
+        return;
+      }
+      if (p.length < 6) {
+        errorElements.password.innerText = 'Password must be at least 6 characters';
+        return;
+      }
+      if (p !== cp) {
+        errorElements.confirm.innerText = 'Passwords do not match';
+        return;
+      }
+      if (users[u]) {
+        errorElements.username.innerText = 'Username already exists';
+        return;
+      }
+      try {
+        const hashedP = await hashPassword(p);
+        users[u] = {
+          hashedPassword: hashedP,
+          whatsappNumber: whatsapp,
+          groupNumber: group,
+          profilePicture: ''
+        };
+        localStorage.setItem('users', JSON.stringify(users));
+        currentUser = u;
+        if (savePassword) {
+          localStorage.setItem('savedCredentials', JSON.stringify({ username: u, hashedPassword: hashedP }));
+        }
+        setStatus('Account created. Logged in as ' + u);
+        showTaskSection();
+        initializeProfilePictureUploader();
+        loadProfilePicture();
+        clearErrors();
+      } catch (e) {
+        console.error('Signup error:', e);
+        setStatus('Error during signup');
+      }
+    }
+
+    function setStatus(msg) {
+      console.log('Status:', msg);
+      const statusMsg = document.getElementById('statusMsg');
+      statusMsg.innerText = msg;
+      setTimeout(() => statusMsg.innerText = '', 5000);
+    }
+
+    function switchToSignup() {
+      console.log('Switch to Signup');
+      document.getElementById('authSection').style.display = 'none';
+      document.getElementById('signupSection').style.display = 'block';
+      document.querySelector('.menu-icon').classList.add('hidden');
+      document.getElementById('accountBtn').style.display = 'none';
+      document.getElementById('backIcon').style.display = 'none';
+      clearErrors();
+    }
+
+    function switchToLogin() {
+      console.log('Switch to Login');
+      document.getElementById('signupSection').style.display = 'none';
+      document.getElementById('authSection').style.display = 'block';
+      document.querySelector('.menu-icon').classList.add('hidden');
+      document.getElementById('accountBtn').style.display = 'none';
+      document.getElementById('backIcon').style.display = 'none';
+      clearErrors();
+    }
+
+    function showTask(type) {
+      console.log('Task selected:', type);
+      currentTaskType = type;
+      setStatus(type + ' work selected');
+      const buttons = document.querySelectorAll('.menu-btns button');
+      buttons.forEach(btn => {
+        btn.classList.remove('selected');
+        if (btn.textContent === type + ' Work') btn.classList.add('selected');
+      });
+    }
+
+    async function submitTask() {
+      console.log('Submit Task clicked');
+      const link = sanitizeInput(document.getElementById('taskLink').value.trim());
+      const wallet = document.getElementById('walletSelect').value;
+      const walletNumber = document.getElementById('walletNumberInput').value.trim();
+      const error = document.getElementById('taskLinkError');
+      const walletError = document.getElementById('walletError');
+      if (!currentUser || !currentTaskType || !link) {
+        setStatus('Please select work and enter content');
+        error.innerText = 'Please enter content';
+        return;
+      }
+      if (!wallet) {
+        setStatus('Please select a wallet');
+        walletError.innerText = 'Please select a wallet';
+        return;
+      }
+      if (!walletNumber || !/^\d{11}$/.test(walletNumber)) {
+        setStatus('Wallet number must be exactly 11 digits');
+        walletError.innerText = 'Wallet number must be exactly 11 digits';
+        return;
+      }
+      try {
+        const userData = users[currentUser];
+        const columns = parseInputToColumns(link);
+        const plainTextContent = `Column A (Gmail):\n${columns.A.join('\n')}\n\nColumn B (Password):\n${columns.B.join('\n')}\n\nColumn C (Others):\n${columns.C.join('\n')}`;
+        const mailto = `mailto:onlineearneleven@gmail.com?subject=${encodeURIComponent(currentTaskType)} Work&body=Username: ${encodeURIComponent(currentUser)}%0D%0AWhatsApp Number: ${encodeURIComponent(userData.whatsappNumber)}%0D%0ATeam Number: ${encodeURIComponent(userData.groupNumber)}%0D%0A${encodeURIComponent(wallet)} Number: ${encodeURIComponent(walletNumber)}%0D%0AContent:%0D%0A${encodeURIComponent(plainTextContent)}`;
+        console.log('Mailto URL:', mailto);
+        const mailOpened = window.open(mailto, '_blank');
+        if (!mailOpened) {
+          setStatus('Please configure an email client');
+          error.innerText = 'Email client not configured';
+          return;
+        }
+        if (!submitHistory[currentUser]) submitHistory[currentUser] = [];
+        if (!gmailCount[currentUser]) gmailCount[currentUser] = 0;
+        const gmailSubmitted = columns.A.length;
+        gmailCount[currentUser] += gmailSubmitted;
+        localStorage.setItem('gmailCount', JSON.stringify(gmailCount));
+        submitHistory[currentUser].push({
+          taskType: currentTaskType,
+          content: link,
+          pieces: countPieces(link, currentTaskType),
+          points: '',
+          dateTime: new Date().toLocaleString(),
+          gmails: columns.A
+        });
+        localStorage.setItem('submitHistory', JSON.stringify(submitHistory));
+        setStatus(`Work submitted. ${gmailSubmitted} Gmail(s) added.`);
+        setTimeout(() => {
+          document.getElementById('taskLink').value = '';
+          document.getElementById('taskLinkError').innerText = '';
+        }, 10000);
+        error.innerText = '';
+        walletError.innerText = '';
+      } catch (e) {
+        console.error('Submit error:', e);
+        error.innerText = 'Error submitting content';
+        setStatus('Submission failed');
+      }
+    }
+
+    function showFullText() {
+      console.log('Show Full Text clicked');
+      const text = document.getElementById('taskLink').value.trim();
+      if (!text) {
+        setStatus('No text to display');
+        return;
+      }
+      const columns = parseInputToColumns(text);
+      const modal = document.createElement('div');
+      modal.className = 'history-modal';
+      modal.innerHTML = `
+        <div class="history-modal-content">
+          <span class="close-modal" onclick="this.parentElement.parentElement.remove()">×</span>
+          <h2>Submitted Content</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Column A (Gmail)</th>
+                <th>Column B (Password)</th>
+                <th>Column C (Others)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${columns.A.map((_, i) => `
+                <tr>
+                  <td>${columns.A[i] || ''}</td>
+                  <td>${columns.B[i] || ''}</td>
+                  <td>${columns.C[i] || ''}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.style.display = 'flex';
+    }
+
+    function clearText() {
+      console.log('Clear Text clicked');
+      document.getElementById('taskLink').value = '';
+      document.getElementById('taskLinkError').innerText = '';
+      setStatus('Text cleared');
+    }
+
+    function logout() {
+      console.log('Logout clicked');
+      currentUser = '';
+      currentTaskType = '';
+      currentScreenshotTask = '';
+      localStorage.removeItem('savedCredentials');
+      document.getElementById('taskSection').style.display = 'none';
+      document.getElementById('accountSection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'none';
+      document.getElementById('authSection').style.display = 'block';
+      document.getElementById('accountBtn').style.display = 'none';
+      document.getElementById('backIcon').style.display = 'none';
+      document.querySelector('.menu-icon').classList.add('hidden');
+      toggleMenu(false);
+      setStatus('Logged out');
+      clearErrors();
+      document.querySelectorAll('.menu-btns button, .task-btns button').forEach(btn => btn.classList.remove('selected'));
+    }
+
+    function showAccount() {
+      console.log('Show Account clicked');
+      document.getElementById('taskSection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'none';
+      document.getElementById('accountSection').style.display = 'block';
+      document.getElementById('accountBtn').style.display = 'none';
+      document.getElementById('backIcon').style.display = 'flex';
+      document.querySelector('.menu-icon').classList.remove('hidden');
+      const userData = users[currentUser];
+      document.getElementById('profileUsername').innerText = `Username: ${currentUser}`;
+      document.getElementById('profileWhatsapp').innerText = `WhatsApp Number: ${userData.whatsappNumber}`;
+      document.getElementById('profileGroup').innerText = `Team Number: ${userData.groupNumber}`;
+      document.getElementById('gmailCount').innerText = `Total Gmail Submissions: ${gmailCount[currentUser] || 0}`;
+      loadProfilePicture();
+      const historyBody = document.getElementById('historyBody');
+      historyBody.innerHTML = '';
+      const userHistory = submitHistory[currentUser] || [];
+      if (userHistory.length === 0) {
+        historyBody.innerHTML = '<tr><td colspan="5">No submissions yet</td></tr>';
+      } else {
+        userHistory.forEach((entry, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${entry.taskType}</td>
+            <td>${entry.pieces || 0}</td>
+            <td>${entry.points || ''}</td>
+            <td>${entry.dateTime}</td>
+            <td><i class="fas fa-eye view-icon" onclick="viewHistoryEntry(${index})"></i></td>
+          `;
+          historyBody.appendChild(row);
+        });
+      }
+    }
+
+    function viewHistoryEntry(index) {
+      console.log('View History Entry:', index);
+      const entry = submitHistory[currentUser][index];
+      const modal = document.createElement('div');
+      modal.className = 'history-modal';
+      let content = '';
+      if (entry.gmails) {
+        content = `
+          <h2>Submitted ${entry.taskType}</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Column A (${entry.taskType})</th>
+                <th>Column B (Password)</th>
+                <th>Column C (Others)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${entry.gmails.map((item, i) => {
+                const columns = parseInputToColumns(entry.content);
+                return `
+                  <tr>
+                    <td>${item}</td>
+                    <td>${columns.B[i] || ''}</td>
+                    <td>${columns.C[i] || ''}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+          <p>Date: ${entry.dateTime}</p>
+        `;
+      } else {
+        content = `
+          <p>Task: ${entry.taskType}</p>
+          <p>Points: ${entry.points || 'N/A'}</p>
+          <p>Date: ${entry.dateTime}</p>
+        `;
+      }
+      modal.innerHTML = `
+        <div class="history-modal-content">
+          <span class="close-modal" onclick="this.parentElement.parentElement.remove()">×</span>
+          ${content}
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.style.display = 'flex';
+    }
+
+    function backToTask() {
+      console.log('Back to Task clicked');
+      document.getElementById('accountSection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'none';
+      document.getElementById('taskSection').style.display = 'block';
+      document.getElementById('accountBtn').style.display = 'flex';
+      document.getElementById('backIcon').style.display = 'none';
+      document.querySelector('.menu-icon').classList.remove('hidden');
+      toggleMenu(false);
+    }
+
+    function toggleMenu(force) {
+      console.log('Toggle Menu');
+      const menu = document.getElementById('menu');
+      if (force === false) {
+        menu.classList.remove('open');
+      } else {
+        menu.classList.toggle('open');
+      }
+    }
+
+    function showScreenshotSection() {
+      console.log('Show Screenshot Section');
+      document.getElementById('taskSection').style.display = 'none';
+      document.getElementById('accountSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'block';
+      document.getElementById('accountBtn').style.display = 'flex';
+      document.getElementById('backIcon').style.display = 'none';
+      document.querySelector('.menu-icon').classList.remove('hidden');
+      toggleMenu(false);
+      document.getElementById('screenshotWalletSelect').value = '';
+      document.getElementById('screenshotWalletNumberInput').value = '';
+      document.getElementById('screenshotWalletNumberInput').style.display = 'none';
+      document.getElementById('screenshotWalletError').innerText = '';
+      document.getElementById('tiktokPoints').style.display = 'none';
+      currentScreenshotTask = '';
+      document.querySelectorAll('.task-btns button').forEach(btn => btn.classList.remove('selected'));
+    }
+
+    function selectScreenshotTask(type) {
+      console.log('Screenshot Task:', type);
+      currentScreenshotTask = type;
+      const buttons = document.querySelectorAll('.task-btns button');
+      buttons.forEach(btn => {
+        btn.classList.remove('selected');
+        if (btn.textContent === type) btn.classList.add('selected');
+      });
+      document.getElementById('tiktokPoints').style.display = type === 'TikTok Free' ? 'block' : 'none';
+      setStatus(type + ' selected');
+    }
+
+    function submitScreenshot() {
+      console.log('Submit Screenshot clicked');
+      const walletType = document.getElementById('screenshotWalletSelect').value;
+      const walletNumber = document.getElementById('screenshotWalletNumberInput').value.trim();
+      const error = document.getElementById('screenshotWalletError');
+      if (!currentUser) {
+        error.innerText = 'Please log in';
+        setStatus('Login required');
+        return;
+      }
+      if (!currentScreenshotTask) {
+        error.innerText = 'Please select a task';
+        setStatus('Task not selected');
+        return;
+      }
+      if (!walletType) {
+        error.innerText = 'Please select a wallet';
+        setStatus('Wallet not selected');
+        return;
+      }
+      if (!walletNumber || !/^\d{11}$/.test(walletNumber)) {
+        error.innerText = 'Wallet number must be exactly 11 digits';
+        setStatus('Invalid wallet number');
+        return;
+      }
+      try {
+        const points = currentScreenshotTask === 'TikTok Free' ? document.getElementById('pointSelect').value : '1.2$';
+        const userData = users[currentUser];
+        const whatsappMessage = `Task: ${encodeURIComponent(currentScreenshotTask)}%0APoints: ${encodeURIComponent(points)}%0AUsername: ${encodeURIComponent(currentUser)}%0AWhatsapp Number: ${encodeURIComponent(userData.whatsappNumber)}%0A${encodeURIComponent(walletType)}: ${encodeURIComponent(walletNumber)}%0A%0ATeam Number: ${encodeURIComponent(userData.groupNumber)}`;
+        const whatsappUrl = `https://wa.me/+8801804749569?text=${whatsappMessage}`;
+        console.log('WhatsApp URL:', whatsappUrl);
+        const whatsappOpened = window.open(whatsappUrl, '_blank');
+        if (!whatsappOpened) {
+          setStatus('Please configure WhatsApp');
+          error.innerText = 'Failed to open WhatsApp';
+          return;
+        }
+        if (!submitHistory[currentUser]) submitHistory[currentUser] = [];
+        submitHistory[currentUser].push({
+          taskType: currentScreenshotTask,
+          content: 'Screenshot submission',
+          pieces: 1,
+          points: points,
+          dateTime: new Date().toLocaleString()
+        });
+        localStorage.setItem('submitHistory', JSON.stringify(submitHistory));
+        setStatus('Screenshot submission sent to WhatsApp.');
+        document.getElementById('screenshotWalletSelect').value = '';
+        document.getElementById('screenshotWalletNumberInput').value = '';
+        document.getElementById('screenshotWalletNumberInput').style.display = 'none';
+        document.getElementById('tiktokPoints').style.display = 'none';
+        currentScreenshotTask = '';
+        document.querySelectorAll('.task-btns button').forEach(btn => btn.classList.remove('selected'));
+        error.innerText = '';
+      } catch (e) {
+        console.error('Screenshot submission error:', e);
+        error.innerText = 'Error submitting screenshot';
+        setStatus('Submission failed');
+      }
+    }
+
+    function showPrivacy() {
+      console.log('Show Privacy');
+      document.getElementById('taskSection').style.display = 'none';
+      document.getElementById('accountSection').style.display = 'none';
+      document.getElementById('screenshotSection').style.display = 'none';
+      document.getElementById('privacySection').style.display = 'block';
+      document.getElementById('accountBtn').style.display = 'flex';
+      document.getElementById('backIcon').style.display = 'none';
+      document.querySelector('.menu-icon').classList.remove('hidden');
+      toggleMenu(false);
+    }
+
+    function showWalletInput() {
+      const walletSelect = document.getElementById('walletSelect').value;
+      const walletNumberInput = document.getElementById('walletNumberInput');
+      if (walletSelect) {
+        walletNumberInput.style.display = 'block';
+      } else {
+        walletNumberInput.style.display = 'none';
+        walletNumberInput.value = '';
+        document.getElementById('walletError').innerText = '';
+      }
+    }
+
+    function showScreenshotWalletInput() {
+      const walletSelect = document.getElementById('screenshotWalletSelect').value;
+      const walletNumberInput = document.getElementById('screenshotWalletNumberInput');
+      if (walletSelect) {
+        walletNumberInput.style.display = 'block';
+      } else {
+        walletNumberInput.style.display = 'none';
+        walletNumberInput.value = '';
+        document.getElementById('screenshotWalletError').innerText = '';
+      }
+    }
+
+    function validateNewUsername() {
+      const u = document.getElementById('newUsername').value.trim();
+      const error = document.getElementById('usernameError');
+      if (u.length < 3) {
+        error.innerText = 'Username must be at least 3 characters';
+      } else if (users[u]) {
+        error.innerText = 'Username already exists';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateWhatsappNumber() {
+      const whatsapp = document.getElementById('whatsappNumber').value.trim();
+      const error = document.getElementById('whatsappError');
+      if (!/^\d{10,}$/.test(whatsapp)) {
+        error.innerText = 'WhatsApp Number must be at least 10 digits';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateGroupNumber() {
+      const group = document.getElementById('groupNumber').value.trim();
+      const error = document.getElementById('groupError');
+      if (group.length < 3) {
+        error.innerText = 'Team Number must be at least 3 characters';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateNewPassword() {
+      const p = document.getElementById('newPassword').value;
+      const error = document.getElementById('passwordError');
+      if (p.length < 6) {
+        error.innerText = 'Password must be at least 6 characters';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateConfirmPassword() {
+      const p = document.getElementById('newPassword').value;
+      const cp = document.getElementById('confirmPassword').value;
+      const error = document.getElementById('confirmPasswordError');
+      if (p !== cp) {
+        error.innerText = 'Passwords do not match';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateTaskLink() {
+      const link = document.getElementById('taskLink').value.trim();
+      const error = document.getElementById('taskLinkError');
+      if (!link) {
+        error.innerText = 'Please enter content';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateWalletNumber() {
+      const walletNumber = document.getElementById('walletNumberInput').value.trim();
+      const error = document.getElementById('walletError');
+      if (!walletNumber) {
+        error.innerText = 'Please enter wallet number';
+      } else if (!/^\d{11}$/.test(walletNumber)) {
+        error.innerText = 'Wallet number must be exactly 11 digits';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function validateScreenshotWalletNumber() {
+      const walletNumber = document.getElementById('screenshotWalletNumberInput').value.trim();
+      const error = document.getElementById('screenshotWalletError');
+      if (!walletNumber) {
+        error.innerText = 'Please enter wallet number';
+      } else if (!/^\d{11}$/.test(walletNumber)) {
+        error.innerText = 'Wallet number must be exactly 11 digits';
+      } else {
+        error.innerText = '';
+      }
+    }
+
+    function clearErrors() {
+      console.log('Clearing errors');
+      document.getElementById('loginError').innerText = '';
+      document.getElementById('usernameError').innerText = '';
+      document.getElementById('whatsappError').innerText = '';
+      document.getElementById('groupError').innerText = '';
+      document.getElementById('passwordError').innerText = '';
+      document.getElementById('confirmPasswordError').innerText = '';
+      document.getElementById('taskLinkError').innerText = '';
+      document.getElementById('screenshotWalletError').innerText = '';
+      document.getElementById('walletError').innerText = '';
+    }
+
+    document.querySelector('.toggle-container').addEventListener('click', () => {
+      console.log('Toggle theme');
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
